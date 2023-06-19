@@ -53,6 +53,34 @@ def run_conversation(user_input):
                 },
                 "required": ["location"],
             },
+        },
+        {
+            "name": "get_wind_speed",
+            "description": "Get the current wind speed in a given location",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "The city, e.g. San Francisco",
+                    },
+                },
+                "required": ["location"],
+            },
+        },
+        {
+            "name": "get_wind_direction",
+            "description": "Get the current wind direction in a given location",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "The city, e.g. San Francisco",
+                    },
+                },
+                "required": ["location"],
+            },
         }
     ]
     response = openai.ChatCompletion.create(

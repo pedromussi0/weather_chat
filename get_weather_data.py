@@ -96,7 +96,59 @@ def get_rain_precipitation(location=None):
     except requests.exceptions.RequestException as e:
         print("Error:", e)
         return None
+    
+
+def get_wind_speed(location=None):
+    if location is None:
+        location = get_current_location()
+    
+    latitude, longitude = get_coordinates(location)
+
+    api_endpoint = "https://api.open-meteo.com/v1/forecast"
+    parameters = {
+        "latitude": latitude,
+        "longitude": longitude,
+        "hourly": "windspeed_180m",
+        "daily": "windspeed_10m_max",
+        "forecast_days": 1,
+        "timezone": "auto",
+    }
+
+    try:
+        response = requests.get(api_endpoint, params=parameters)
+        response.raise_for_status()  # Raise an exception if the request was not successful
+        weather_data = response.json()
+
+        hourly_wind_speed = weather_data["hourly"]["windspeed_180m"]
+        return json.dumps(hourly_wind_speed)
+    except requests.exceptions.RequestException as e:
+        print("Error:", e)
+        return None
 
 
-location = 'florianopolis'
-print (get_uv_radiation(location))
+def get_wind_direction(location=None):
+    if location is None:
+        location = get_current_location()
+    
+    latitude, longitude = get_coordinates(location)
+
+    api_endpoint = "https://api.open-meteo.com/v1/forecast"
+    parameters = {
+        "latitude": latitude,
+        "longitude": longitude,
+        "hourly": "winddirection_180m",
+        "daily": "windgusts_10m_max",
+        "forecast_days": 1,
+        "timezone": "auto",
+    }
+
+    try:
+        response = requests.get(api_endpoint, params=parameters)
+        response.raise_for_status()  # Raise an exception if the request was not successful
+        weather_data = response.json()
+
+        hourly_wind_direction = weather_data["hourly"]["winddirection_180m"]
+        return json.dumps(hourly_wind_direction)
+    except requests.exceptions.RequestException as e:
+        print("Error:", e)
+        return None
