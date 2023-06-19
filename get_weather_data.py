@@ -2,6 +2,7 @@ import os
 import requests
 from dotenv import load_dotenv
 import geocoder
+import json
 
 geocoding_api_key = os.getenv("GEOCODING_API_KEY")
 
@@ -63,8 +64,8 @@ def get_uv_radiation(location=None):
         response.raise_for_status()  # Raise an exception if the request was not successful
         weather_data = response.json()
 
-        daily_uv_index_max = weather_data["daily"]["uv_index_max"]
-        return str(daily_uv_index_max)
+        hourly_uv_index = weather_data["hourly"]["uv_index"]
+        return json.dumps(hourly_uv_index)
     except requests.exceptions.RequestException as e:
         print("Error:", e)
         return None
@@ -91,10 +92,11 @@ def get_rain_precipitation(location=None):
         weather_data = response.json()
 
         hourly_precipitation = weather_data["hourly"]["precipitation"]
-        return str(hourly_precipitation)
+        return json.dumps(hourly_precipitation)
     except requests.exceptions.RequestException as e:
         print("Error:", e)
         return None
 
 
-
+location = 'florianopolis'
+print (get_uv_radiation(location))
