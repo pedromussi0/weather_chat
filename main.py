@@ -86,11 +86,11 @@ def run_conversation(user_input):
                 "name": function_name,
                 "content": function_response,
             }
-        )  # extend conversation with function response
+        )  
         second_response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo-0613",
             messages=messages,
-        )  # get a new response from GPT where it can see the function response
+        )  
         return second_response
 
 
@@ -98,7 +98,6 @@ def chat(user_input):
     response = run_conversation(user_input)
     return response["choices"][0]["message"]["content"]
 
-# Example usage:
 user_input = input("Type your question: ")
 assistant_response = chat(user_input)
 print(assistant_response)
