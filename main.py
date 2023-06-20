@@ -10,22 +10,9 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 
 
 def run_conversation(user_input):
-    # Step 1: send the conversation and available functions to GPT
+    
     messages = [{"role": "user", "content": user_input}]
     functions = [
-        #{
-        #    "name": "get_current_location",
-        #    "description": "Get the current location if location wasn't identified in message",
-        #    "parameters": {
-        #        "type": "object",
-        #        "properties": {
-        #            "location": {
-        #                "type": "string",
-        #                "description": "The city, e.g. San Francisco",
-        #            },
-        #        },
-        #    },
-        #},
         {
             "name": "get_rain_precipitation",
             "description": "Get the current precipitation in a given location",
@@ -87,7 +74,7 @@ def run_conversation(user_input):
         model="gpt-3.5-turbo-0613",
         messages=messages,
         functions=functions,
-        function_call="auto",  # auto is default, but we'll be explicit
+        function_call="auto", 
     )
     response_message = response["choices"][0]["message"]
 
