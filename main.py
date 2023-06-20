@@ -126,9 +126,13 @@ def chat(user_input):
     response = run_conversation(user_input)
     return response["choices"][0]["message"]["content"]
 
-user_input = input("Type your question: ")
-assistant_response = chat(user_input)
-print(assistant_response)
+while True:
+    user_input = input("Type your question (or 'exit' to quit): ")
+    if user_input.lower() == "exit":
+        break
+    
+    assistant_response = chat(user_input)
+    print(assistant_response)
 
 
 
