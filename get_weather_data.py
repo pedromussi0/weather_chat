@@ -61,7 +61,7 @@ def get_uv_radiation(location=None):
 
     try:
         response = requests.get(api_endpoint, params=parameters)
-        response.raise_for_status()  # Raise an exception if the request was not successful
+        response.raise_for_status()  
         weather_data = response.json()
 
         hourly_uv_index = weather_data["hourly"]["uv_index"]
@@ -88,7 +88,7 @@ def get_rain_precipitation(location=None):
 
     try:
         response = requests.get(api_endpoint, params=parameters)
-        response.raise_for_status()  # Raise an exception if the request was not successful
+        response.raise_for_status()  
         weather_data = response.json()
 
         hourly_precipitation = weather_data["hourly"]["precipitation"]
@@ -116,7 +116,7 @@ def get_wind_speed(location=None):
 
     try:
         response = requests.get(api_endpoint, params=parameters)
-        response.raise_for_status()  # Raise an exception if the request was not successful
+        response.raise_for_status()  
         weather_data = response.json()
 
         hourly_wind_speed = weather_data["hourly"]["windspeed_180m"]
@@ -144,7 +144,7 @@ def get_wind_direction(location=None):
 
     try:
         response = requests.get(api_endpoint, params=parameters)
-        response.raise_for_status()  # Raise an exception if the request was not successful
+        response.raise_for_status()  
         weather_data = response.json()
 
         hourly_wind_direction = weather_data["hourly"]["winddirection_180m"]
