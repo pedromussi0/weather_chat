@@ -10,7 +10,7 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 
 
 def run_conversation(user_input):
-    
+    # Step 1: send the conversation and available functions to GPT
     messages = [{"role": "user", "content": user_input}]
     functions = [
         {
@@ -74,7 +74,7 @@ def run_conversation(user_input):
         model="gpt-3.5-turbo-0613",
         messages=messages,
         functions=functions,
-        function_call="auto", 
+        function_call="auto",  # auto is default, but we'll be explicit
     )
     response_message = response["choices"][0]["message"]
 
@@ -111,16 +111,17 @@ def run_conversation(user_input):
 
 def chat(user_input):
     response = run_conversation(user_input)
-    return response["choices"][0]["message"]["content"]
+    if response and response["choices"]:
+        return response["choices"][0]["message"]["content"]
+    else:
+        return "I'm sorry, I couldn't generate a response."
 
-while True:
-    user_input = input("Type your question (or 'exit' to quit): ")
-    if user_input.lower() == "exit":
-        break
-    
+user_input = input("ask anything about the weather (or 'exit' to quit): ")
+while user_input.lower() != "exit":
     assistant_response = chat(user_input)
     print(assistant_response)
 
+    user_input = input("Type your question (or 'exit' to quit): ")
 
 
 
